@@ -10,9 +10,8 @@ export default function (state = initialState, action) {
         case FETCHALL: 
             return {...state, ...action.payload}
         case ADD:
-            return action.payload ? { ...state, saved: [...state.saved, ...action.payload] } : state;
-        case UNSV: 
-            return {...state, saved: [...action.payload]}
+        case UNSV:
+            return { ...state, saved: [...action.payload] };
         default:
             return state;
     }
