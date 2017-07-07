@@ -4,11 +4,12 @@ import App from '../../src/components/app';
 describe('App' , () => {
   let component;
 
-  beforeEach(() => {
-    component = renderComponent(App);
+  beforeEach( function() {
+      component = renderComponent(App);
   });
 
-  it('renders something', () => {
-    expect(component).to.exist;
+  it('renders container', () => {
+    expect(component).to.have.class('main');
   });
+
 });

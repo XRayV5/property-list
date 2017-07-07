@@ -11,9 +11,11 @@ class App extends Component {
   }   
   render() {
     return (
-      <div>
-        <List properties={ this.props.results } listAction={this.props.addProperty}/>
-        <List properties={ this.props.saved } listAction={this.props.unsaveProperty} saved/>
+      <div className='main' >
+        <div className="left-aside"></div>
+        <List className='result' properties={ this.props.results } listAction={this.props.addProperty}/>
+        <List className='saved' properties={ this.props.saved } listAction={this.props.unsaveProperty} saved/>
+        <div className="right-aside"></div>
       </div>
     );
   }
