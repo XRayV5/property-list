@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 const ListItems = (props) => (
-                <div className="demo-card-square mdl-card mdl-shadow--2dp" style={{ background: `url(${props.ppt.mainImage}) bottom right 15% no-repeat #46B6AC` }}>
-                    <button className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored action-btn-colored custom-btn" onClick={ props.btnAction }>
+                <div className="demo-card-square mdl-card mdl-shadow--2dp" style={{ background: `url(${props.ppt.mainImage})`, backgroundSize: 'cover' }}>
+                    <button className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect action-btn-colored custom-btn" onClick={ props.btnAction }>
                         <i className="material-icons">{props.btnLable}</i>
                     </button>
                     <div className="mdl-card__title mdl-card--expand">
@@ -23,7 +23,10 @@ class List extends Component {
     render() {
         return (
             <div className={this.props.className}>
-                <h3>{this.props.saved ? "Saved Properties" : "Properties"}</h3>
+                <h3>
+                    <i className="material-icons list-label">{this.props.saved ? "bookmark" : "list"}</i>
+                    {this.props.saved ? "Saved Properties" : "Result"}
+                </h3>
                     { 
                         this.props.properties.map((ppt) => <ListItems 
                                                             ppt={ ppt } 
