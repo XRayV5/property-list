@@ -7,6 +7,7 @@ import chai, { expect } from 'chai';
 import chaiJquery from 'chai-jquery';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import reducers from '../src/reducers';
 
@@ -36,4 +37,6 @@ $.fn.simulate = function(eventName, value) {
   TestUtils.Simulate[eventName](this[0]);
 };
 
-export {renderComponent, expect};
+const mockStore = configureMockStore([ thunk ]);
+
+export {renderComponent, expect, mockStore};
