@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { fetchProperties, addProperty, unsaveProperty } from '../actions/index'
 
-const ListItems = (props) => (
+export const ListItems = (props) => (
                 <div className="demo-card-square mdl-card mdl-shadow--2dp" style={{ background: `url(${props.ppt.mainImage})`, backgroundSize: 'cover' }}>
                     <button className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect action-btn-colored custom-btn" onClick={ props.btnAction }>
                         <i className="material-icons">{props.btnLable}</i>
@@ -32,7 +35,8 @@ class List extends Component {
                                                             ppt={ ppt } 
                                                             key={ ppt.id } 
                                                             btnLable={ this.props.saved ? "remove" : "add" }
-                                                            btnAction={ this.props.listAction.bind(this, ppt.id) }
+                                                            btnAction={ this.props.saved ? this.props.unsaveProperty.bind(this, ppt.id) 
+                                                            : this.props.addProperty.bind(this, ppt.id) }
                                                             />) 
                     }
             </div>
@@ -40,4 +44,11 @@ class List extends Component {
     } 
 }
 
-export default List;
+// export default List;
+
+
+// function mapStateToProps({properties: { results, saved } }) {
+//   return { results, saved }
+// }
+
+export default connect(null ,{ fetchProperties, addProperty, unsaveProperty })(List);

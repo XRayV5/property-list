@@ -8,8 +8,10 @@ describe('App' , () => {
       component = renderComponent(App);
   });
 
-  it('renders container', () => {
+  it('renders the main component', () => {
     expect(component).to.have.class('main');
   });
+
+  
 
 });

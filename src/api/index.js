@@ -1,5 +1,5 @@
 // import propertyJSON from './data.json';
-var fakeDB = { 
+export let fakeDB = { 
     "results": [{
         "price": "$726,500",
         "agency": {
