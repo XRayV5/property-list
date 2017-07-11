@@ -3,6 +3,8 @@ import { apiFetch } from '../api'
 export const FETCHALL = "FETCHALL";
 export const ADD = "ADD";
 export const UNSV = "UNSV";
+export const LOADING = 'LOADING';
+export const LOADED = 'LOADED';
 
 export function fetchProperties() {
     return (dispatch) => apiFetch({
