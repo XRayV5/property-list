@@ -27,9 +27,17 @@ describe('CRUD Actions', () => {
         const { id } = mockRecord; 
         const expectedActions = [
             {
+                type: actions.LOADING,
+                id: fakeDB.results[0].id
+            },
+            {
+                type: actions.LOADED,
+                id: fakeDB.results[0].id
+            },
+            {
                 type: actions.ADD,
                 payload: [...fakeDB.saved, mockRecord]
-            }
+            },
         ]
 
         return store.dispatch(actions.addProperty(id)).then(() => {
@@ -40,10 +48,20 @@ describe('CRUD Actions', () => {
     it('unsaves the seleceted property', () => {
         const mockRecord = fakeDB.saved[0];
         const { id } = mockRecord;
-        const expectActions = [{
-            type: actions.UNSV,
-            payload: []
-        }]
+        const expectActions = [
+            {
+                type: actions.LOADING,
+                id: fakeDB.saved[0].id
+            },
+            {
+                type: actions.LOADED,
+                id: fakeDB.saved[0].id
+            },
+            {
+                type: actions.UNSV,
+                payload: []
+            },
+        ]
 
         return store.dispatch(actions.unsaveProperty(id)).then((data) => {
             expect(store.getActions()).to.deep.equal(expectActions);
@@ -64,10 +82,6 @@ describe('Animation Actions', () => {
     // let store;
     let mockRecord = fakeDB.saved[0];
     let { id } = mockRecord;
-    
-    // beforeEach(() => {
-    //     store = mockStore([]);
-    // });
 
     it('will create the action to start loading animation for a property', () => {
         const expectedAction = {

@@ -6,7 +6,7 @@ import { fetchProperties, addProperty, unsaveProperty } from '../actions/index'
 export const ListItems = (props) => (
                 <div className="demo-card-square mdl-card mdl-shadow--2dp" style={{ background: `url(${props.ppt.mainImage})`, backgroundSize: 'cover' }}>
                     <button className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect action-btn-colored custom-btn" onClick={ props.btnAction }>
-                        <i className="material-icons">{props.btnLable}</i>
+                        { props.btnLoading || <i className="material-icons">{props.btnLable}</i> }
                     </button>
                     <div className="mdl-card__title mdl-card--expand">
                         <h3 className="mdl-card__title-text">{ props.ppt.price }</h3>
@@ -18,12 +18,17 @@ export const ListItems = (props) => (
             );
 
 
-
 class List extends Component {
     constructor(props, context) {
         super(props, context);
     }
+
+    isLoading(id) {
+        return this.props.loadings.includes(id)
+    }
+
     render() {
+        const btnOnLoad = <img src="../../source.gif" alt=""/>
         return (
             <div className={this.props.className}>
                 <h3>
@@ -33,7 +38,8 @@ class List extends Component {
                     { 
                         this.props.properties.map((ppt) => <ListItems 
                                                             ppt={ ppt } 
-                                                            key={ ppt.id } 
+                                                            key={ ppt.id }
+                                                            btnLoading={ this.isLoading(ppt.id) ?  btnOnLoad : null} 
                                                             btnLable={ this.props.saved ? "remove" : "add" }
                                                             btnAction={ this.props.saved ? this.props.unsaveProperty.bind(this, ppt.id) 
                                                             : this.props.addProperty.bind(this, ppt.id) }
@@ -44,11 +50,8 @@ class List extends Component {
     } 
 }
 
-// export default List;
+function mapStateToProps({ loadings }) {
+  return { loadings }
+}
 
-
-// function mapStateToProps({properties: { results, saved } }) {
-//   return { results, saved }
-// }
-
-export default connect(null ,{ fetchProperties, addProperty, unsaveProperty })(List);
+export default connect(mapStateToProps ,{ fetchProperties, addProperty, unsaveProperty })(List);

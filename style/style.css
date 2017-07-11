@@ -102,6 +102,14 @@ body {
         transition: visibility 0s, opacity 0.5s linear;
     }
 
+    .custom-btn > img {
+        display: inline-block;
+        position: relative;
+        width: 28px;
+        height: 28px;
+        margin-bottom: 2%;
+    }
+
     .demo-card-square:hover > .custom-btn {
         visibility: visible;
         opacity: 1;

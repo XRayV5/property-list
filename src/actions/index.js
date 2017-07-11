@@ -23,11 +23,15 @@ export function addProperty(id) {
         // return dispatch({ type: ADD, payload: checkUniq(id, saved, results)})
         let pptToAdd = checkUniq(id, saved, results);
         if(pptToAdd) {
+            dispatch(startLoading.call(this, id));
             return apiFetch({ method: 'POST', url: '/saved', data: pptToAdd })
-            .then((newSavedList) => dispatch({
-                type: ADD,
-                payload: newSavedList
-            }), console.error );
+            .then((newSavedList) => {
+                dispatch(ceaseLoading.call(this, id));
+                dispatch({
+                    type: ADD,
+                    payload: newSavedList
+                });
+            }, console.error );
         }
         return Promise.resolve()
     }
@@ -37,13 +41,20 @@ export function unsaveProperty(id) {
     return (dispatch, getState) => {
         let { saved } = getState().properties;
         let idx = saved.findIndex((ppt) => ppt.id === id);
+        dispatch(startLoading.call(this, id));
         return apiFetch({ method: 'DELETE', url: '/saved', data: {idx} })
-                                        .then((newSavedList) => dispatch({
-                                            type: UNSV,
-                                            payload: newSavedList
-                                        }), console.error);
+                                        .then((newSavedList) => {
+                                            dispatch(ceaseLoading.call(this, id));
+                                            dispatch({
+                                                type: UNSV,
+                                                payload: newSavedList
+                                            })
+                                        }, console.error);
     }
         
 }
+
+export const startLoading = (id) => ({ type: LOADING, id });
+export const ceaseLoading = (id) => ({ type: LOADED, id });
 
 const checkUniq = (id, saved, result) => saved.every((ppt) => ppt.id !== id) ? result.filter((ppt) => id === ppt.id) : false;

@@ -47,14 +47,6 @@ describe('List' , () => {
                 expect(resultList.find('.mdl-button')[i].textContent).to.equal('add');
             });
         })
-        describe('Add button', () => {
-            beforeEach(() => {
-                resultList.find('.mdl-button')[0].simulate('click');
-            })
-            it('should start animation when "+" button is clicked', () => {
-                expect(resultList.find('.mdl-button-loading')).to.exist;
-            });
-        });
     });
 
     describe('Listed property in saved list', () => {
@@ -66,14 +58,6 @@ describe('List' , () => {
         it('should has a button with remove(minus) icon', () => {
             savedProps.properties.forEach(function(ppt, i) { 
                 expect(savedList.find('.mdl-button')[i].textContent).to.equal('remove');
-            });
-        });
-        describe('Remove button', () => {
-            beforeEach(() => {
-                savedList.find('.mdl-button')[0].simulate('click');
-            })
-            it('should start animation when "+" button is clicked', () => {
-                expect(savedList.find('.mdl-button-loading')).to.exist;
             });
         });
     });
