@@ -1,6 +1,6 @@
 import { FETCHALL, ADD, UNSV } from '../actions/';
 
-const initialState = {
+export const initialState = {
     results: [],
     saved: []
 }

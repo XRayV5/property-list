@@ -27,6 +27,7 @@ export function addProperty(id) {
                 payload: newSavedList
             }), console.error );
         }
+        return Promise.resolve()
     }
 }
 

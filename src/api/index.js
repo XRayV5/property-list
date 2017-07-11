@@ -45,12 +45,13 @@ export let fakeDB = {
     }]
 }
 
+const dbCopy = {...fakeDB};
+
 const delay = (ms) => 
     new Promise(rslv => setTimeout(rslv, ms)); 
 
 export function apiFetch (req) {
     return delay(500).then(() => {
-        let afterEdit
         const { method, url, data } = req;
         if(method === 'GET' && url === '/saved') {
             return fakeDB.saved
@@ -59,12 +60,12 @@ export function apiFetch (req) {
             return fakeDB.result
         }
         else if( method === 'POST' && url === '/saved' ) {
-            afterEdit = { ...fakeDB, saved: [...fakeDB.saved, ...data]}
-            return afterEdit.saved
+            fakeDB = { ...fakeDB, saved: [...fakeDB.saved, ...data]}
+            return fakeDB.saved
         }
         else if( method === 'DELETE' && url === '/saved' ) {
-            afterEdit = { ...fakeDB, saved: [...fakeDB.saved.slice(0, data.idx), ...fakeDB.saved.slice(data.idx + 1)] }
-            return afterEdit.saved         
+            fakeDB = { ...fakeDB, saved: [...fakeDB.saved.slice(0, data.idx), ...fakeDB.saved.slice(data.idx + 1)] }
+            return fakeDB.saved         
         } 
         else if( method === 'GET' && url === '/all') {
             return fakeDB
@@ -74,3 +75,5 @@ export function apiFetch (req) {
         }
     })
 }
+
+export const undoAll = () => { fakeDB = {...dbCopy}};
