@@ -25,3 +25,4 @@ function mapStateToProps({properties: { results, saved } }) {
 }
 
 export default connect(mapStateToProps, { fetchProperties })(App);
+
