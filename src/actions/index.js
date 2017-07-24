@@ -5,6 +5,7 @@ export const ADD = "ADD";
 export const UNSV = "UNSV";
 export const LOADING = 'LOADING';
 export const LOADED = 'LOADED';
+export const GET_DETAIL = 'GET_DETAIL';
 
 export function fetchProperties() {
     return (dispatch) => apiFetch({
@@ -52,6 +53,13 @@ export function unsaveProperty(id) {
                                         }, console.error);
     }
         
+}
+
+export function getPropertyDetail(id) {
+    return {
+        type: GET_DETAIL,
+        id
+    }
 }
 
 export const startLoading = (id) => ({ type: LOADING, id });

@@ -70,6 +70,9 @@ export function apiFetch (req) {
         else if( method === 'GET' && url === '/all') {
             return fakeDB
         }
+        else if( method === 'GET' && url === '/detail' && req.id) {
+            return fakeDB.result.filter((ppt) => ppt.id === req.id)
+        }
         else {
             throw new Error('Request does not match any existing route')
         }
